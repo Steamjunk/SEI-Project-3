@@ -36,6 +36,12 @@ export const Icon = styled.img`
     cursor: pointer;
 `
 
+export const CloseIcon = styled(Holder) `
+    height: 1em;
+    width: 1em;
+    align-items
+`
+
 export const Modal = styled.div`
     position: absolute;
     display: flex;
@@ -45,4 +51,6 @@ export const Modal = styled.div`
     background: white;
     border: solid black 2px;
     border-radius: 3px;
+    padding: 5px;
+    z-index: 2;
 `

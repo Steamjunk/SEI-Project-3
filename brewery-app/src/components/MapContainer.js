@@ -53,13 +53,33 @@ const MapContainer = (props) => {
     activeLngs: []
   })
 
+  const [varData, setVarData] = useState({
+    data: []
+  })
 
    async function getCoords(geocodeURL) {
-    await axios.get(geocodeURL)
-      .then(resp => console.log(resp))
-  }
+    let data = await axios.get(geocodeURL)
+      .then (resp => {
+        setVarData({
+          data: resp.data.results[0]
+        })
+        console.log()
+      })
+      return data
+      }
+
   // Setting map center based on center of results, will only change on newSet of results
   useEffect(() => {
+    async function getCoords(geocodeURL, brew) {
+      await axios.get(geocodeURL)
+      .then(resp => {
+        console.log(resp)
+        brew.latitude = resp.data.results[0].geometry.location.lat;
+        brew.longitude = resp.data.results[0].geometry.location.lng;
+        mapData.activeLats.push(brew.latitude);
+        mapData.activeLngs.push(brew.longitude);
+      })}
+
     {props.searchResults.map((brew) => {
       if(brew.latitude) {
         mapData.activeLats.push(brew.latitude);
@@ -67,14 +87,18 @@ const MapContainer = (props) => {
       } else {
         let geocodeURL = "https://maps.googleapis.com/maps/api/geocode/json?"
         let street = brew.street;
-        street = street.split("Ste")[0];
+        street = street.split(" Ste")[0];
         let address = `${street}, ${brew.city}, ${brew.state}`;
         address = address.split(" ").join("+")
         geocodeURL = `${geocodeURL}address=${address}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+        console.log(geocodeURL)
+        getCoords(geocodeURL, brew);
         
         
-        
-        getCoords(geocodeURL)
+        // brew.latitude = varData.data.geometry.location.lat;
+        // brew.longitude = varData.data.geometry.location.lng;
+        // mapData.activeLats.push(brew.latitude);
+        // mapData.activeLngs.push(brew.longitude);
       }
     })}
 
