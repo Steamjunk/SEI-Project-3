@@ -32,6 +32,7 @@ export const ResultDiv = styled.div`
         margin: 0;
     }
     animation: ${fadeInAnimation} 1s 1; 
+    
 `
 
 export const ResultHead = styled.div`
@@ -59,6 +60,10 @@ export const ResultHolder = styled.div `
     .active {
             background: #9a5607;
             color: white;
+    }
+    &:isDragging {
+        opacity: 0;
+        background: purple;
     }
 `
 

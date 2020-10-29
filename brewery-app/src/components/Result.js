@@ -9,6 +9,7 @@ import { ResultDiv } from '../styles/ResultStyle';
 
 
 
+
 const Result = (props) => {
     const dispatch = useDispatch();
     const brewery = useSelector(selectBrewery);
@@ -69,9 +70,7 @@ const Result = (props) => {
         }),
         end: (dropResult, monitor) => {
             const {id: droppedId, originalIndex} = monitor.getItem();
-            console.log(monitor.getItem());
             const didDrop = monitor.didDrop();
-            console.log(`Dropped: ${droppedId}, original: ${originalIndex}`)
             if(!didDrop) {
                 moveBrew(droppedId, originalIndex);
             }
@@ -91,13 +90,17 @@ const Result = (props) => {
             }
         },
     })
+    
 
     drag(drop(ref))
-    
-    
 
     return (
-        <ResultDiv className={isActiveBrewery ? 'result active' : 'result'} ref={ref} isDragging={isDragging} onClick={(e) => handleClick(e)}>
+        <ResultDiv 
+            className={isActiveBrewery ? 'result active' : 'result'}  
+            ref={ref} 
+            isDragging={isDragging} 
+            onClick={(e) => handleClick(e)}
+            >
             <div className={isActiveBrewery ? 'active' : ''}> 
                 <h3>Brewery: {props.result.name}</h3>
                 <h4>Location: {props.result.street}, {props.result.city}, {props.result.state}</h4>
@@ -110,7 +113,9 @@ const Result = (props) => {
                 </button>
             </div>
         </ResultDiv>
+
     )
+    
 }
 
 export default Result;
