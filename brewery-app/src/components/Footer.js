@@ -12,7 +12,7 @@ const Footer = () => {
             <F.Div>
                 <div>
                     <p>&#169; 2020</p>
-                    <p>Darci Dietrich | Nick LaPointe | Chris Meyers</p>
+                    <p>Darci Dietrich | Nick LaPointe | Chris Myers</p>
                 </div>
             </F.Div>
             <F.Div>
